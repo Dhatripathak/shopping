@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+    <style>
+      .invoice {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .invoice-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .address {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      .table-container {
+        margin-top: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .date {
+        font-size: 12px;
+      }
+
+      h3 {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice">
+      <div class="invoice-header">
+        <p class="date">Date: {{ invoice_date }}</p>
+        <h2>Tax Invoice/Bill of Supply/Cash Memo</h2>
+        <p>(Original for Recipient)</p>
+      </div>
+      <div>
+        <p class="address">
+          <strong>Seller Address:</strong> {{ shop.shop_address }}
+        </p>
+        <p class="address">
+          <strong>GST No:</strong> {{ shop.registration_no }}
+        </p>
+        <p class="address">
+          <strong>Shipped From:</strong> {{ shop.shop_address }}
+        </p>
+      </div>
+      <p class="address">
+        <strong>Billing Address:</strong>{{ shipping_address }}
+      </p>
+      <p class="address">
+        <strong>Shipping Address:</strong>{{ shipping_address }}
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th><strong>Item Name</strong></th>
+              <th><strong>Item Quantity</strong></th>
+              <th><strong>Item Price</strong></th>
+              <th><strong>Total Price (Excluding Tax)</strong></th>
+              <th><strong>Tax Percentage</strong></th>
+              <th><strong>Tax Amount</strong></th>
+              <th><strong>Total Price (Including Tax)</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <td>{{ item.item_name }}</td>
+              <td>{{ item.item_quantity }}</td>
+              <td>{{ item.item_price }}</td>
+              <td>{{ item.total_price_excluding_tax }}</td>
+              <td>{{ item.gst_percentage }}</td>
+              <td>{{ item.tax_amount }}</td>
+              <td>{{ item.total_price_including_tax }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="total">Total Amount</td>
+              <td class="total">{{ total_amount }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

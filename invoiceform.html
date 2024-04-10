@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Form</title>
+</head>
+<body>
+    <h1>Invoice Form</h1>
+    <form action="/push_invoice" method="post">
+        <label for="invoice_number">Invoice Number:</label>
+        <input type="text" name="invoice_number" id="invoice_number"><br><br>
+        
+        <label for="order_date">Order Date:</label>
+        <input type="date" id="order_date" name="order_date" required><br><br>
+    
+        <label for="invoice_details">Invoice Details:</label>
+        <input type="text" id="invoice_details" name="invoice_details" required><br><br>
+    
+        <label for="invoice_date">Invoice Date:</label>
+        <input type="date" id="invoice_date" name="invoice_date" required><br><br>
+    
+        <label for="seller_address">Seller Address:</label>
+        <input type="text" id="seller_address" name="seller_address" required><br><br>
+        
+        <label for="gst_number">GST Number:</label>
+        <input type="text" name="gst_number" id="gst_number"><br><br>
+        
+        <label for="shipped_from_address">Shipped From Address:</label>
+        <input type="text" name="shipped_from_address" id="shipped_from_address"><br><br>
+        
+        <label for="billing_address">Billing Address:</label>
+        <input type="text" name="billing_address" id="billing_address"><br><br>
+        
+        <label for="shipping_address">Shipping Address:</label>
+        <input type="text" name="shipping_address" id="shipping_address"><br><br>
+        
+        <h2>Items:</h2>
+        <div id="items">
+            <!-- JavaScript or Flask Jinja2 template can dynamically generate item input fields here -->
+        </div>
+        
+        <button type="button" onclick="addItem()">Add Item</button><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <script> 
+        let itemCount = 1;
+
+        function addItem() {
+            itemCount++;
+            const itemDiv = document.createElement('div');
+            itemDiv.innerHTML = `
+                <label for="item_${itemCount}">Item ${itemCount}:</label>
+                <input type="text" name="item_${itemCount}" id="item_${itemCount}">
+                <br><br>
+                <label for="quantity_${itemCount}">Quantity:</label>
+                <input type="text" name="quantity_${itemCount}" id="quantity_${itemCount}">
+                <br><br>
+                <label for="price_${itemCount}">Price:</label>
+                <input type="text" name="price_${itemCount}" id="price_${itemCount}">
+                <br><br>
+            `;
+            document.getElementById('items').appendChild(itemDiv);
+        }
+    </script>
+</body>
+</html>

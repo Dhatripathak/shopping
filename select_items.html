@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Select Items</title>
+  </head>
+  <body>
+    <h1>Select Items</h1>
+    <form action="/select_items/{{ shop_no }}" method="POST">
+      {% for item in items %}
+      <div>
+        <input
+          type="checkbox"
+          id="{{ item._id }}"
+          name="selected_items"
+          value="{{ item._id }}"
+        />
+        <label for="{{ item._id }}"
+          >{{ item.item_name }} - Price: {{ item.item_price }}</label
+        >
+      </div>
+      {% endfor %}
+      <button type="submit">Generate Invoice</button>
+    </form>
+  </body>
+</html>

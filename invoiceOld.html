@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice</title>
+    <style>
+      .invoice-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .logo {
+        width: 100px;
+      }
+      .address {
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-align: right;
+      }
+      .table-container {
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .top-right {
+        text-align: right;
+        font-weight: bold;
+      }
+      .date {
+        font-size: 12px;
+      }
+      h3 {
+        font-weight: bold;
+      }
+      .right-align {
+        text-align: right;
+      }
+    </style>
+</head>
+<body>
+  <div class="invoice">
+    <div class="invoice-header">
+      <div>
+        <p class="date">Date: {{ invoices.invoice_details.invoice_date }}</p>
+      </div>
+      <div class="top-right">
+        Tax Invoice/Bill of Supply/Cash Memo<br />
+        (Original for Recipient)
+      </div>
+    </div>
+    <div class="seller-details">
+      <p class="address">
+        <strong>Seller Address:</strong> {{ invoices.seller_details.seller_address }}
+      </p>
+      <p class="address">
+        <strong>GST No:</strong> {{ invoices.seller_details.gst_number }}
+      </p>
+      <p class="address">
+        <strong>Shipped From:</strong> {{ invoices.seller_details.shipped_from_address }}
+      </p>
+      <p>
+        <strong>Invoice Number:</strong> {{ invoices.invoice_details.invoice_number }}
+      </p>
+      <p>
+        <strong>Order Date:</strong> {{ invoices.invoice_details.order_date }}
+      </p>
+      <p>
+        <strong>Invoice Details:</strong> {{ invoices.invoice_details.invoice_details }}
+      </p>
+      <p>
+        <strong>Invoice Date:</strong> {{ invoices.invoice_details.invoice_date }}
+      </p>
+    </div>
+    <div class="addresses right-align">
+      <div class="billing-address">
+        <h3>Billing Address:</h3>
+        <p>{{ invoices.billing_address }}</p>
+      </div>
+      <div class="shipping-address">
+        <h3>Shipping Address:</h3>
+        <p>{{ invoices.shipping_address }}</p>
+      </div>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th><strong>S.No</strong></th>
+            <th><strong>material</strong></th>
+            <th><strong>Quantity</strong></th>
+            <th><strong>Price</strong></th>
+            <th><strong>Tax Rate</strong></th>
+            <th><strong>Tax Type</strong></th>
+            <th><strong>Tax Amount</strong></th>
+            <th><strong>Total Amount</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for material in invoices.materials %}
+          <tr>
+            <td>{{ material.serial_number }}</td>
+            <td>{{ material.material }}</td>
+            <td>{{ material.quantity }}</td>
+            <td>${{ material.price }}</td>
+            <td>{{ material.tax_rate*100 }}</td>
+            <td>{{ material.tax_type }}</td>
+            <td>${{ material.tax_amount }}</td>
+            <td>${{ material.total_amount }}</td>
+          </tr>
+          {% endfor %}
+          <td colspan="6"></td>
+          <td><strong>Total Tax:</strong></td>
+          <td>${{ total_tax }}</td>
+        </tr>
+        <tr>
+          <td colspan="6"></td>
+          <td><strong>Total Amount:</strong></td>
+          <td>${{ total_amount }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
+       
